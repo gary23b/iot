@@ -57,9 +57,27 @@ func (s *SparkfunSerialLcd) MoveCursorTo(row, column int) error {
 
 	cmd := 128 + rowsLookup[row] + column
 
-	err := s.i2c.Write(s.address, []byte{'|', byte(cmd)})
+	err := s.i2c.Write(s.address, []byte{254, byte(cmd)})
 	if err != nil {
 		return fmt.Errorf("SparkfunSerialLcd.MoveCursorTo had error, row=%d, column=%d: %w", row, column, err)
+	}
+	return nil
+}
+
+func (s *SparkfunSerialLcd) SetBacklightPercent(r, g, b float64) error {
+	if r < 0 || r > 100 || g < 0 || g > 100 || b < 0 || b > 100 {
+		return fmt.Errorf("SparkfunSerialLcd.SetBacklightPercent invalid input rgb= %f %f %f", r, g, b)
+	}
+
+	steps := 29.0
+	rInt := 128 + int(steps*r)
+	gInt := 158 + int(steps*g)
+	bInt := 188 + int(steps*b)
+
+	cmd := []byte{'|', byte(rInt), '|', byte(gInt), '|', byte(bInt)}
+	err := s.i2c.Write(s.address, cmd)
+	if err != nil {
+		return fmt.Errorf("SparkfunSerialLcd.SetBacklightPercent had error, rgb= %f %f %f: %w", r, g, b, err)
 	}
 	return nil
 }

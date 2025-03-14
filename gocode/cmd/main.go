@@ -25,6 +25,9 @@ func main() {
 
 	lcd := gocode.NewSparkfunSerialLcd(i2c, 0x72)
 
+	err = lcd.SetBacklightPercent(0, 0, 0)
+	NoError(err)
+
 	err = lcd.ClearDisplay()
 	NoError(err)
 	err = lcd.Write("Hello World!\nSecond Line")
@@ -34,7 +37,7 @@ func main() {
 	err = lcd.Write("| ! ||")
 	NoError(err)
 
-		t := time.NewTicker(500 * time.Millisecond)
+	t := time.NewTicker(500 * time.Millisecond)
 	for l := gpio.Low; ; l = !l {
 		rpi.P1_33.Out(l)
 		<-t.C
