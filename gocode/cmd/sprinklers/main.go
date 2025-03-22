@@ -17,7 +17,7 @@ func NoError(err error) {
 }
 
 func main() {
-	fmt.Println("Hello World")
+	fmt.Println("Hello World2")
 	host.Init()
 
 	i2c, err := gocode.OpenI2c()
