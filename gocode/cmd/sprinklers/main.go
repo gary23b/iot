@@ -27,7 +27,7 @@ func main() {
 
 	err = lcd.ClearDisplay()
 	NoError(err)
-	err = lcd.Write("Hello World!\nSecond Line")
+	err = lcd.Write("Hello World!\r\nSecond Line\r\nAutoRun is working!")
 	NoError(err)
 	err = lcd.MoveCursorTo(3, 10)
 	NoError(err)

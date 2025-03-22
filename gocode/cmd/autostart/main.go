@@ -10,6 +10,7 @@ import (
 )
 
 // https://raspberrypi-guide.github.io/programming/run-script-on-boot
+// https://github.com/thagrol/Guides/blob/main/boot.pdf
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
