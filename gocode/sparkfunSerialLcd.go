@@ -70,9 +70,9 @@ func (s *SparkfunSerialLcd) SetBacklightPercent(r, g, b float64) error {
 	}
 
 	steps := 29.0
-	rInt := 128 + int(steps*r)
-	gInt := 158 + int(steps*g)
-	bInt := 188 + int(steps*b)
+	rInt := 128 + int(steps*r/100)
+	gInt := 158 + int(steps*g/100)
+	bInt := 188 + int(steps*b/100)
 
 	cmd := []byte{'|', byte(rInt), '|', byte(gInt), '|', byte(bInt)}
 	err := s.i2c.Write(s.address, cmd)
